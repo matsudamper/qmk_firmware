@@ -14,7 +14,7 @@ enum custom_keycodes {
   JAN,
   WIN_L,
   WIN_R
-};//エビ
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
