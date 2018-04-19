@@ -20,9 +20,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Esc    |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |   -    |
+ * | Esc    |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |Backspace|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  ,   |           |  .   |   Y  |   U  |   I  |   O  |   P  |Backspace|
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |  ,   |           |  .   |   Y  |   U  |   I  |   O  |   P  |   -    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Layer  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |      | Enter  |
  * |--------+------+------+------+------+------|  [   |           |  ]   |------+------+------+------+------+--------|
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_PGUP,
                                                KC_SPC,KC_LEFT,KC_HOME,
         // right hand
-             KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             KC_DOT,      KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSPC,
+             KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSPC,
+             KC_DOT,      KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_MINS,
                           KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),KC_ENT,
              KC_RBRC,     KC_N,   KC_M,   KC_SCLN,KC_QUOT,KC_SLSH,          KC_BSLS,
                                   JAN,    KC_NO,  KC_NO,  KC_NO,            KC_NO,
