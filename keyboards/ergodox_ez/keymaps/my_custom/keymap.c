@@ -13,7 +13,9 @@ enum custom_keycodes {
   VRSN,
   JAN,
   WIN_L,
-  WIN_R
+  WIN_R,
+  SETS_L,
+  SETS_R
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -65,11 +67,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * |Version  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F7  |  F8  |  F9  |  F10 |  F11 | F12  |  Del   |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |   !  |   @  |   {  |   }  |   |  |      |           |VolUp |      |      |  Up  |      |      |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |         |   !  |   @  |   {  |   }  |   |  | Sets |           |VolUp |      |      |  Up  |      |      |        |
+ * |---------+------+------+------+------+------|  R   |           |      |------+------+------+------+------+--------|
  * |         |   #  |   $  |   (  |   )  |   `  |------|           |------|      | LEFT | Down |RIGHT |      |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |   %  |   ^  |   [  |   ]  |   ~  |      |           |VolDow|      |      |      |      |      |        |
+ * |---------+------+------+------+------+------| Sets |           |      |------+------+------+------+------+--------|
+ * |         |   %  |   ^  |   [  |   ]  |   ~  |  L   |           |VolDow|      |      |      |      |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | EPRM  |      |      |      |      |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -85,9 +87,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = LAYOUT_ergodox(
        // left hand
        VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
-       KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
+       KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,SETS_R,
        KC_TRNS,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
-       KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
+       KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,SETS_L,
           EPRM,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                          KC_NO,   RESET,
                                                   KC_NO,
@@ -183,6 +185,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case WIN_R:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
+      }
+      return false;
+      break;
+      
+    case SETS_L:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_DOWN(X_LSHIFT)SS_TAP(X_TAB)SS_UP(X_LSHIFT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
+      }
+      return false;
+      break;
+      
+    case SETS_R:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI)SS_UP(X_LCTRL));
       }
       return false;
       break;
