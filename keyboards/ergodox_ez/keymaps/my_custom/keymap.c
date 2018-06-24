@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F7  |  F8  |  F9  |  F10 |  F11 | F12  |  Del   |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |   !  |   @  |   {  |   }  |   |  | Sets |           |VolUp |      |      |  Up  |      |      |        |
+ * |         |   !  |   @  |   {  |   }  |   |  | Sets |           |VolUp |      |MouseL|  Up  |MouseR|      |        |
  * |---------+------+------+------+------+------|  R   |           |      |------+------+------+------+------+--------|
  * |         |   #  |   $  |   (  |   )  |   `  |------|           |------|      | LEFT | Down |RIGHT |      |        |
  * |---------+------+------+------+------+------| Sets |           |      |------+------+------+------+------+--------|
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,  WIN_L,   KC_TRNS,
        // right hand
        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-       KC_VOLU, KC_NO,   KC_NO,  KC_UP,   KC_NO,   KC_NO,   KC_NO,
+       KC_VOLU, KC_NO,   KC_NO,  KC_BTN1, KC_BTN2, KC_NO,   KC_NO,
                 KC_NO,   KC_LEFT,KC_DOWN, KC_RIGHT,KC_NO,   KC_NO,
        KC_VOLD, KC_NO  , KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,
                          KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,
