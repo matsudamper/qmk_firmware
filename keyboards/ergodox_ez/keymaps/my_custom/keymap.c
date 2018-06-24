@@ -15,7 +15,8 @@ enum custom_keycodes {
   WIN_L,
   WIN_R,
   SETS_L,
-  SETS_R
+  SETS_R,
+  TILDE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -28,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Layer  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   /  | Enter  |
  * |--------+------+------+------+------+------|  [   |           |  ]   |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |      |      |   ↑  |   \    |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |      |   \  |   ↑  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | CTRL | Win  |      | Alt  | CTRL |                                       | Jan  |      |   ←  |   ↓  |   →  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -49,25 +50,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(SYMB),       KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_LBRC,
         KC_LCTRL,       KC_LGUI,      KC_NO,  KC_LALT,KC_LCTRL,
-                                                      KC_MINS, KC_PGUP,
-                                                               KC_NO,
-                                               KC_SPC,KC_COMM, KC_END,
+                                                             KC_MINS, KC_PGUP,
+                                                                      KC_NO,
+                                                     KC_SPC, KC_COMM, KC_END,
         // right hand
-             KC_PGDN,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,      KC_BSPC,
-             KC_SCLN,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_MINS,
-                          KC_H,   KC_J,   KC_K,    KC_L,    KC_SLSH,   KC_ENT,
-             KC_RBRC,     KC_N,   KC_M,   KC_NO,   KC_NO,   KC_UP,     KC_BSLS,
-                                  JAN,    KC_NO,   KC_LEFT, KC_DOWN,   KC_RIGHT,
-             KC_PGDN, KC_EQL,
-             KC_NO,
-             KC_HOME, KC_DOT,  KC_SPC
+        KC_PGDN,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,      KC_BSPC,
+        KC_SCLN,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_MINS,
+                     KC_H,   KC_J,   KC_K,    KC_L,    KC_SLSH,   KC_ENT,
+        KC_RBRC,     KC_N,   KC_M,   KC_NO,   KC_BSLS, KC_UP,     KC_RSFT,
+                             JAN,    KC_NO,   KC_LEFT, KC_DOWN,   KC_RIGHT,
+        KC_PGDN, KC_EQL,
+        KC_NO,
+        KC_HOME, KC_DOT,  KC_SPC
     ),
 /* Keymap 1: Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F7  |  F8  |  F9  |  F10 |  F11 | F12  |  Del   |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |   !  |   @  |   {  |   }  |   |  | Sets |           |VolUp |      |MouseL|  Up  |MouseR|      |        |
+ * |         |   !  |   @  |   {  |   }  |   |  | Sets |           |VolUp |      |      |  Up  |      |      |   ~    |
  * |---------+------+------+------+------+------|  R   |           |      |------+------+------+------+------+--------|
  * |         |   #  |   $  |   (  |   )  |   `  |------|           |------|      | LEFT | Down |RIGHT |      |        |
  * |---------+------+------+------+------+------| Sets |           |      |------+------+------+------+------+--------|
@@ -86,17 +87,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
        // left hand
-       KC_GRV, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
-       KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,SETS_R,
-       KC_TRNS,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
-       KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,SETS_L,
-          EPRM,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_GRV,  KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,   KC_F6,
+       KC_TRNS, KC_EXLM, KC_AT,  KC_LCBR, KC_RCBR, KC_PIPE, SETS_R,
+       KC_TRNS, KC_HASH, KC_DLR, KC_LPRN, KC_RPRN, KC_GRV,
+       KC_TRNS, KC_PERC, KC_CIRC,KC_LBRC, KC_RBRC, KC_TILD, SETS_L,
+          EPRM, KC_TRNS, KC_TRNS,KC_TRNS, KC_TRNS,
                                          KC_NO,   RESET,
                                                   KC_NO,
                                KC_TRNS,  WIN_L,   KC_TRNS,
        // right hand
        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-       KC_VOLU, KC_NO,   KC_NO,  KC_BTN1, KC_BTN2, KC_NO,   KC_NO,
+       KC_VOLU, KC_NO,   KC_NO,  KC_UP,   KC_NO,   KC_NO,   TILDE,
                 KC_NO,   KC_LEFT,KC_DOWN, KC_RIGHT,KC_NO,   KC_NO,
        KC_VOLD, KC_NO  , KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,
                          KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,
@@ -199,6 +200,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SETS_R:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI)SS_UP(X_LCTRL));
+      }
+      return false;
+      break;
+    
+    case TILDE:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LSHIFT)SS_DOWN(X_GRAVE)SS_UP(X_GRAVE)SS_UP(X_LSHIFT));
       }
       return false;
       break;
