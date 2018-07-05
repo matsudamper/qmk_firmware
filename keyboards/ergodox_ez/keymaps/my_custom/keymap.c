@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Esc    |   1  |   2  |   3  |   4  |   5  |  -   |           |  =   |   6  |   7  |   8  |   9  |   0  |Backspace|
+ * | Esc    |   1  |   2  |   3  |   4  |   5  | PgUp |           | PgDn |   6  |   7  |   8  |   9  |   0  |B_space|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  '   |           |  ;   |   Y  |   U  |   I  |   O  |   P  |   -    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_MINS,
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_PGUP,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_QUOT,
         MO(SYMB),       KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_LBRC,
@@ -66,13 +66,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
- * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |  Del   |
+ * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |  Del   |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |   !  |   @  |   {  |   }  |   |  | Sets |           |VolUp |      |      |  Up  | F11  | F12  |   ~    |
+ * |         |      |      |      |      |      | Sets |           |VolUp |      |      |  Up  | F11  | F12  |   ~    |
  * |---------+------+------+------+------+------|  R   |           |      |------+------+------+------+------+--------|
- * |         |   #  |   $  |   (  |   )  |   `  |------|           |------|      | LEFT | Down |RIGHT |      |        |
+ * |         |      |      |      |      |      |------|           |------|      | LEFT | Down |RIGHT |      |        |
  * |---------+------+------+------+------+------| Sets |           |      |------+------+------+------+------+--------|
- * |         |   %  |   ^  |   [  |   ]  |   ~  |  L   |           |VolDow|      |      |      |      |      |        |
+ * |         |      |      |      |      |      |  L   |           |VolDow|      |      |      |      |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | EPRM  |      |      |      |      |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -88,15 +88,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = LAYOUT_ergodox(
        // left hand
        KC_GRV,  KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,   KC_NO,
-       KC_TRNS, KC_EXLM, KC_AT,  KC_LCBR, KC_RCBR, KC_PIPE, SETS_R,
-       KC_TRNS, KC_HASH, KC_DLR, KC_LPRN, KC_RPRN, KC_GRV,
-       KC_TRNS, KC_PERC, KC_CIRC,KC_LBRC, KC_RBRC, KC_TILD, SETS_L,
-          EPRM, KC_TRNS, KC_TRNS,KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SETS_R,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SETS_L,
+          EPRM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                          KC_NO,   RESET,
                                                   KC_NO,
                                KC_TRNS,  WIN_L,   KC_TRNS,
        // right hand
-       KC_NO,   KC_F6,   KC_F7,  KC_F8,   KC_F9,    KC_F10,  KC_DEL,
+       KC_MUTE, KC_F6,   KC_F7,  KC_F8,   KC_F9,    KC_F10,  KC_DEL,
        KC_VOLU, KC_NO,   KC_NO,  KC_UP,   KC_F11,   KC_F12,   TILDE,
                 KC_NO,   KC_LEFT,KC_DOWN, KC_RIGHT, KC_NO,   KC_NO,
        KC_VOLD, KC_NO  , KC_NO,  KC_NO,   KC_NO,    KC_NO,   KC_NO,
