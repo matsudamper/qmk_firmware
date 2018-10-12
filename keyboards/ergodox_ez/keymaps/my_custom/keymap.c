@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Layer  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   /  | Enter  |
  * |--------+------+------+------+------+------|  [   |           |  ]   |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |      |   \  |   ↑  | RShift |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |      |      |   ↑  | \      |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | CTRL | Win  |      | Alt  | CTRL |                                       | Jan  |      |   ←  |   ↓  |   →  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PGDN,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,      KC_BSPC,
         KC_SCLN,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_MINS,
                      KC_H,   KC_J,   KC_K,    KC_L,    KC_SLSH,   KC_ENT,
-        KC_RBRC,     KC_N,   KC_M,   KC_NO,   KC_BSLS, KC_UP,     KC_RSFT,
+        KC_RBRC,     KC_N,   KC_M,   KC_NO,   KC_NO,   KC_UP,     KC_BSLS,
                              JAN,    KC_NO,   KC_LEFT, KC_DOWN,   KC_RIGHT,
         KC_PGDN, KC_EQL,
         KC_NO,
@@ -182,28 +182,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-      
+
     case WIN_R:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
       }
       return false;
       break;
-      
+
     case SETS_L:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_DOWN(X_LSHIFT)SS_TAP(X_TAB)SS_UP(X_LSHIFT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
       }
       return false;
       break;
-      
+
     case SETS_R:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI)SS_UP(X_LCTRL));
       }
       return false;
       break;
-    
+
     case TILDE:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LSHIFT)SS_DOWN(X_GRAVE)SS_UP(X_GRAVE)SS_UP(X_LSHIFT));
