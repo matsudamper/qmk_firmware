@@ -16,6 +16,9 @@ enum custom_keycodes {
   WIN_R,
   SETS_L,
   SETS_R,
+  WIN_TAB,
+  TAB_NEXT,
+  TAB_PREV,
   TILDE
 };
 
@@ -23,13 +26,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Esc    |   1  |   2  |   3  |   4  |   5  | PgUp |           | PgDn |   6  |   7  |   8  |   9  |   0  |B_space|
+ * | Esc    |   1  |   2  |   3  |   4  |   5  | PgUp |           | PgDn |   6  |   7  |   8  |   9  |   0  |TAB_NEXT|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  '   |           |  ;   |   Y  |   U  |   I  |   O  |   P  |   -    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |  '   |           |  ;   |   Y  |   U  |   I  |   O  |   P  | B_space|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Layer  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   /  | Enter  |
+ * | Layer  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   -  | Enter  |
  * |--------+------+------+------+------+------|  [   |           |  ]   |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |      |      |   ↑  | \      |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |      |   /  |   ↑  | WIN_TAB|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | CTRL | Win  |      | Alt  | CTRL |                                       | Jan  |      |   ←  |   ↓  |   →  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -54,10 +57,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                       KC_NO,
                                                      KC_SPC, KC_COMM, KC_END,
         // right hand
-        KC_PGDN,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,      KC_BSPC,
-        KC_SCLN,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_MINS,
-                     KC_H,   KC_J,   KC_K,    KC_L,    KC_SLSH,   KC_ENT,
-        KC_RBRC,     KC_N,   KC_M,   KC_NO,   KC_NO,   KC_UP,     KC_BSLS,
+        KC_PGDN,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,      TAB_NEXT,
+        KC_SCLN,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_BSPC,
+                     KC_H,   KC_J,   KC_K,    KC_L,    KC_MINS,   KC_ENT,
+        KC_RBRC,     KC_N,   KC_M,   KC_NO,   KC_SLSH, KC_UP,     WIN_TAB,
                              JAN,    KC_NO,   KC_LEFT, KC_DOWN,   KC_RIGHT,
         KC_PGDN, KC_EQL,
         KC_NO,
@@ -66,42 +69,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
- * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |  Del   |
+ * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |TAB_PREV|
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |      |      |      |      | Sets |           |VolUp |      |      |  Up  | F11  | F12  |   ~    |
+ * |         |      |      |      |      |      | Sets |           |VolUp |      |      |  Up  | F11  | F12  |  Del   |
  * |---------+------+------+------+------+------|  R   |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |------|           |------|      | LEFT | Down |RIGHT |      |        |
+ * |         |      |      |      |      |      |------|           |------|      | LEFT | Down |RIGHT |  ~   |        |
  * |---------+------+------+------+------+------| Sets |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |  L   |           |VolDow|      |      |      |      |      |        |
+ * |         |      |      |      |      |      |  L   |           |VolDow|      |      |      |  \   |      | RESET  |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | EPRM  |      |      |      |      |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |RESET |       |RESET |      |
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      |WIN_L |------|       |------|WIN_R |      |
+ *                                 | Space|WIN_L |------|       |------|WIN_R |Space |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
        // left hand
-       KC_GRV,  KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,   KC_NO,
+       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_NO,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SETS_R,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SETS_L,
           EPRM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                         KC_NO,   RESET,
+                                         KC_NO,   KC_NO,
                                                   KC_NO,
                                KC_TRNS,  WIN_L,   KC_TRNS,
        // right hand
-       KC_MUTE, KC_F6,   KC_F7,  KC_F8,   KC_F9,    KC_F10,  KC_DEL,
-       KC_VOLU, KC_NO,   KC_NO,  KC_UP,   KC_F11,   KC_F12,   TILDE,
-                KC_NO,   KC_LEFT,KC_DOWN, KC_RIGHT, KC_NO,   KC_NO,
-       KC_VOLD, KC_NO  , KC_NO,  KC_NO,   KC_NO,    KC_NO,   KC_NO,
+       KC_MUTE, KC_F6,   KC_F7,  KC_F8,   KC_F9,    KC_F10,  TAB_PREV,
+       KC_VOLU, KC_NO,   KC_NO,  KC_UP,   KC_F11,   KC_F12,  KC_DEL,
+                KC_NO,   KC_LEFT,KC_DOWN, KC_RIGHT, TILDE,   KC_NO,
+       KC_VOLD, KC_NO  , KC_NO,  KC_NO,   KC_BSLS,  KC_NO,   RESET,
                          KC_NO,  KC_NO,   KC_NO,    KC_NO,   KC_NO,
-       RESET,   KC_NO,
+       KC_NO,   KC_NO,
        KC_NO,
        KC_TRNS, WIN_R,   KC_TRNS
 ),
@@ -177,7 +180,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     case WIN_L:
-      if (record->event.pressed) {\
+      if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
       }
       return false;
@@ -203,6 +206,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+
+    case WIN_TAB:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI));
+      }
+      return false;
+
+    case TAB_NEXT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_TAB)SS_UP(X_LCTRL));
+      }
+      return false;
+
+    case TAB_PREV:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT)SS_TAP(X_TAB)SS_UP(X_LSHIFT)SS_UP(X_LCTRL));
+      }
+      return false;
 
     case TILDE:
       if (record->event.pressed) {
