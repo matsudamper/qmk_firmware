@@ -19,6 +19,7 @@ enum custom_keycodes {
   WIN_TAB,
   TAB_NEXT,
   TAB_PREV,
+  WINDOW_DEL,
   TILDE
 };
 
@@ -71,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |TAB_PREV|
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |      |      |      |      | Sets |           |VolUp |      |      |  Up  | F11  | F12  |  Del   |
+ * |         |      |      |      | W_DEL|      | Sets |           |VolUp |      |      |  Up  | F11  | F12  |  Del   |
  * |---------+------+------+------+------+------|  R   |           |      |------+------+------+------+------+--------|
  * |         |      |      |      |      |      |------|           |------|      | LEFT | Down |RIGHT |  ~   |        |
  * |---------+------+------+------+------+------| Sets |           |      |------+------+------+------+------+--------|
@@ -90,10 +91,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
        // left hand
-       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_NO,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SETS_R,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SETS_L,
+       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,      KC_F5,   KC_NO,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, WINDOW_DEL, KC_TRNS, SETS_R,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, SETS_L,
           EPRM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                          KC_NO,   KC_NO,
                                                   KC_NO,
@@ -222,6 +223,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TAB_PREV:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT)SS_TAP(X_TAB)SS_UP(X_LSHIFT)SS_UP(X_LCTRL));
+      }
+      return false;
+
+    case WINDOW_DEL:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_F4)SS_UP(X_LALT));
       }
       return false;
 
