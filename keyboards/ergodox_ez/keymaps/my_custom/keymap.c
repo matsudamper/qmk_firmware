@@ -27,13 +27,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Esc    |   1  |   2  |   3  |   4  |   5  | PgUp |           | PgDn |   6  |   7  |   8  |   9  |   0  |TAB_NEXT|
+ * | Esc    |   1  |   2  |   3  |   4  |   5  |TABPRE|           |TABNEX|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  '   |           |  ;   |   Y  |   U  |   I  |   O  |   P  | B_space|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Layer  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   -  | Enter  |
+ * | Layer  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  /   | Enter  |
  * |--------+------+------+------+------+------|  [   |           |  ]   |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |      |   /  |   ↑  | WIN_TAB|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |      |      |   ↑  | WIN_TAB|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | CTRL | Win  |      | Alt  | CTRL |                                       | Jan  |      |   ←  |   ↓  |   →  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |   -  | PgUp |       | PgDn |   =   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |      |       |      |        |      |
- *                                 | Space|  ,   |------|       |------|   .    |Space |
+ *                                 | Space|  ,   |------|       |------|   .    |   -  |
  *                                 |      |      | End  |       | Home |        |      |
  *                                 `--------------------'       `----------------------'
  */
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_PGUP,
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TAB_PREV,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_QUOT,
         MO(SYMB),       KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_LBRC,
@@ -58,25 +58,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                       KC_NO,
                                                      KC_SPC, KC_COMM, KC_END,
         // right hand
-        KC_PGDN,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,      TAB_NEXT,
+        TAB_NEXT,    KC_6,   KC_7,   KC_8,    KC_9,    KC_0,      KC_MINS,
         KC_SCLN,     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,      KC_BSPC,
-                     KC_H,   KC_J,   KC_K,    KC_L,    KC_MINS,   KC_ENT,
-        KC_RBRC,     KC_N,   KC_M,   KC_NO,   KC_SLSH, KC_UP,     WIN_TAB,
+                     KC_H,   KC_J,   KC_K,    KC_L,    KC_SLSH,   KC_ENT,
+        KC_RBRC,     KC_N,   KC_M,   KC_NO,   KC_NO,   KC_UP,     WIN_TAB,
                              JAN,    KC_NO,   KC_LEFT, KC_DOWN,   KC_RIGHT,
         KC_PGDN, KC_EQL,
         KC_NO,
-        KC_HOME, KC_DOT,  KC_SPC
+        KC_HOME, KC_DOT,  KC_MINS
     ),
 /* Keymap 1: Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
- * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |TAB_PREV|
+ * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |   ~    |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
  * |         |      |      |      | W_DEL|      | Sets |           |VolUp |      |      |  Up  | F11  | F12  |  Del   |
  * |---------+------+------+------+------+------|  R   |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |------|           |------|      | LEFT | Down |RIGHT |  ~   |        |
+ * |         |      |      |      |      |      |------|           |------|      | LEFT | Down |RIGHT |  \   |        |
  * |---------+------+------+------+------+------| Sets |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |  L   |           |VolDow|      |      |      |  \   |      | RESET  |
+ * |         |      |      |      |      |      |  L   |           |VolDow|      |      |      |      |      | RESET  |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | EPRM  |      |      |      |      |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 | Space|WIN_L |------|       |------|WIN_R |Space |
+ *                                 | Space|WIN_L |------|       |------|WIN_R |  ~   |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -100,14 +100,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                   KC_NO,
                                KC_TRNS,  WIN_L,   KC_TRNS,
        // right hand
-       KC_MUTE, KC_F6,   KC_F7,  KC_F8,   KC_F9,    KC_F10,  TAB_PREV,
+       KC_MUTE, KC_F6,   KC_F7,  KC_F8,   KC_F9,    KC_F10,  TILDE,
        KC_VOLU, KC_NO,   KC_NO,  KC_UP,   KC_F11,   KC_F12,  KC_DEL,
-                KC_NO,   KC_LEFT,KC_DOWN, KC_RIGHT, TILDE,   KC_NO,
-       KC_VOLD, KC_NO  , KC_NO,  KC_NO,   KC_BSLS,  KC_NO,   RESET,
+                KC_NO,   KC_LEFT,KC_DOWN, KC_RIGHT, KC_BSLS, KC_NO,
+       KC_VOLD, KC_NO  , KC_NO,  KC_NO,   KC_NO,    KC_NO,   RESET,
                          KC_NO,  KC_NO,   KC_NO,    KC_NO,   KC_NO,
        KC_NO,   KC_NO,
        KC_NO,
-       KC_TRNS, WIN_R,   KC_TRNS
+       KC_TRNS, WIN_R,   TILDE
 ),
 /* Keymap 2: Media and mouse keys
  *
