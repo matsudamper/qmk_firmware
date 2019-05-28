@@ -7,6 +7,8 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
+#define IS_WIN 0
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -175,21 +177,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case JAN:
       if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_GRAVE)SS_UP(X_LCTRL));
+        if (IS_WIN) {
+          SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_GRAVE)SS_UP(X_LCTRL));
+        } else {
+          SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_SPACE)SS_UP(X_LGUI));
+        }
       }
       return false;
       break;
 
     case WIN_L:
       if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
+        if (IS_WIN) {
+          SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LCTRL)); 
+        } else {
+          SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)); 
+        }
       }
       return false;
       break;
 
     case WIN_R:
       if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
+        if (IS_WIN) {
+          SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
+        } else {
+          SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI));
+        }
       }
       return false;
       break;
@@ -216,13 +230,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case TAB_NEXT:
       if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_TAB)SS_UP(X_LCTRL));
+        if (IS_WIN) {
+          SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_TAB)SS_UP(X_LCTRL));
+        } else {
+          SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI));
+        }
       }
       return false;
 
     case TAB_PREV:
       if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT)SS_TAP(X_TAB)SS_UP(X_LSHIFT)SS_UP(X_LCTRL));
+        if (IS_WIN) {
+          SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT)SS_TAP(X_TAB)SS_UP(X_LSHIFT)SS_UP(X_LCTRL));
+        } else {
+          SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LSHIFT)SS_TAP(X_TAB)SS_UP(X_LSHIFT)SS_UP(X_LGUI));
+        }
       }
       return false;
 
