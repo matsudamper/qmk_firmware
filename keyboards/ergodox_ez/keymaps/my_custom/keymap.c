@@ -266,7 +266,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case WIN_TAB:
       if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI));
+        if (IS_WIN) {
+          SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI));
+        } else {
+          SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_UP)SS_UP(X_LGUI));
+        }
       }
       return false;
 
