@@ -8,7 +8,10 @@
 #define MOUSE 2
 #define SCROLL 3
 
-#define IS_WIN 0
+#define TRUE -1
+#define FALSE 0
+
+char IS_WIN = TRUE;
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -19,6 +22,7 @@ enum custom_keycodes {
   WIN_R,
   SETS_L,
   SETS_R,
+  OS_CHANGE,
   WIN_TAB,
   TAB_NEXT,
   TAB_PREV,
@@ -73,32 +77,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
- * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |   ~    |
+ * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |  OS  |           | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |   ~    |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
  * |         |      |      |      | W_DEL|      | Sets |           |VolUp |      |      |  Up  | F11  | F12  |  Del   |
  * |---------+------+------+------+------+------|  R   |           |      |------+------+------+------+------+--------|
  * |         |      |      |      |      |      |------|           |------|      | LEFT | Down |RIGHT |  \   |        |
  * |---------+------+------+------+------+------| Sets |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |  L   |           |VolDow|      |      |      |      |      | RESET  |
+ * | LShift  |      |      |      |      |      |  L   |           |VolDow|      |      |      |      |      | RESET  |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | EPRM  |      |      |      |      |                                       |      |      |      |      |      |
+ *   | CTRL  |      |      |      |      |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
  *                                 | Space|WIN_L |------|       |------|WIN_R |  ~   |
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |  End |       | Home |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
        // left hand
-       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,      KC_F5,   KC_NO,
+       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,      KC_F5,   OS_CHANGE,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, WINDOW_DEL, KC_TRNS, SETS_R,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, SETS_L,
-          EPRM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_LCTRL,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                          KC_NO,   KC_NO,
                                                   KC_NO,
                                KC_TRNS,  WIN_L,   KC_TRNS,
@@ -261,6 +265,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SETS_R:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI)SS_UP(X_LCTRL));
+      }
+      return false;
+      break;
+
+    case OS_CHANGE:
+      if (record->event.pressed) {
+        IS_WIN = ~IS_WIN;
       }
       return false;
       break;
