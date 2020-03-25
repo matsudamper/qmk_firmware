@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_VOLU, KC_NO,   KC_NO,  KC_UP,   KC_F11,   KC_F12,  KC_DEL,
                 KC_NO,   KC_LEFT,KC_DOWN, KC_RIGHT, KC_BSLS, KC_NO,
        KC_VOLD, KC_NO  , KC_NO,  KC_NO,   KC_NO,    KC_NO,   RESET,
-                         KC_NO,  KC_NO,   KC_NO,    KC_NO,   KC_NO,
+                         VRSN,   KC_NO,   KC_NO,    KC_NO,   KC_NO,
        KC_TRNS,   KC_TRNS,
        KC_NO,
        KC_TRNS, WIN_R,   TILDE
@@ -218,6 +218,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+        if (IS_WIN) {
+          SEND_STRING ("Win");
+        } else {
+          SEND_STRING ("Mac");
+        }
       }
       return false;
       break;
@@ -235,22 +240,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case WIN_L:
       if (record->event.pressed) {
-        if (IS_WIN) {
           SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
-        } else {
-          SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI));
-        }
       }
       return false;
       break;
 
     case WIN_R:
       if (record->event.pressed) {
-        if (IS_WIN) {
           SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)SS_UP(X_LCTRL));
-        } else {
-          SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI));
-        }
       }
       return false;
       break;
@@ -278,11 +275,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case WIN_TAB:
       if (record->event.pressed) {
-        if (IS_WIN) {
           SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI));
-        } else {
-          SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_UP)SS_UP(X_LGUI));
-        }
       }
       return false;
 
