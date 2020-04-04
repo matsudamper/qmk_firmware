@@ -12,6 +12,8 @@
 #define FALSE 0
 
 char IS_WIN = TRUE;
+char IS_PRESS_LAYER1 = FALSE;
+char IS_LAYER1_IDEA_FUNC = FALSE;
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -27,7 +29,9 @@ enum custom_keycodes {
   TAB_NEXT,
   TAB_PREV,
   WINDOW_DEL,
-  TILDE
+  TILDE,
+  IRANGE,
+  IBACK
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -79,13 +83,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * |    `    |  F1  |  F2  |  F3  |  F4  |  F5  |  OS  |           | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |   ~    |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |      |      | W_DEL|      | Sets |           |VolUp |      |      |  Up  | F11  | F12  |  Del   |
+ * |         | IBACK|IRANGE|      | W_DEL|      | Sets |           |VolUp |      |      |  Up  | F11  | F12  |  Del   |
  * |---------+------+------+------+------+------|  R   |           |      |------+------+------+------+------+--------|
  * |         |      |      |      |      |      |------|           |------|      | LEFT | Down |RIGHT |  \   |        |
  * |---------+------+------+------+------+------| Sets |           |      |------+------+------+------+------+--------|
- * | LShift  |      |      |      |      |      |  L   |           |VolDow|      |      |      |      |      | RESET  |
+ * | LShift  |X_UNDO|X_CUT |X_COPY|X_PAST|      |  L   |           |VolDow|      |      |      |      |      | RESET  |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | CTRL  |      |      |      |      |                                       |      |      |      |      |      |
+ *   | CTRL  |      |      |      |      |                                       | JAN  |      |      |      | VRSN |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -99,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = LAYOUT_ergodox(
        // left hand
        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,      KC_F5,   OS_CHANGE,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, WINDOW_DEL, KC_TRNS, SETS_R,
+       KC_TRNS, IBACK,   IRANGE,  KC_TRNS, WINDOW_DEL, KC_TRNS, SETS_R,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, SETS_L,
+       KC_TRNS, KC_UNDO, KC_CUT,  KC_COPY,  KC_PAST,   KC_TRNS, SETS_L,
        KC_LCTRL,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                          KC_NO,   KC_NO,
                                                   KC_NO,
@@ -111,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_VOLU, KC_NO,   KC_NO,  KC_UP,   KC_F11,   KC_F12,  KC_DEL,
                 KC_NO,   KC_LEFT,KC_DOWN, KC_RIGHT, KC_BSLS, KC_NO,
        KC_VOLD, KC_NO  , KC_NO,  KC_NO,   KC_NO,    KC_NO,   RESET,
-                         VRSN,   KC_NO,   KC_NO,    KC_NO,   KC_NO,
+                         JAN,   KC_NO,   KC_NO,    KC_NO,    VRSN,
        KC_TRNS,   KC_TRNS,
        KC_NO,
        KC_TRNS, WIN_R,   TILDE
@@ -275,7 +279,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case WIN_TAB:
       if (record->event.pressed) {
+        if (IS_WIN) {
           SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_TAB)SS_UP(X_LGUI));
+        } else {
+          SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_UP)SS_UP(X_LCTRL));
+        }
       }
       return false;
 
@@ -308,6 +316,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TILDE:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LSHIFT)SS_DOWN(X_GRAVE)SS_UP(X_GRAVE)SS_UP(X_LSHIFT));
+      }
+      return false;
+
+    case MO(SYMB):
+      if (record->event.pressed) {
+        IS_PRESS_LAYER1 = TRUE;
+      } else {
+        IS_PRESS_LAYER1 = FALSE;
+
+        if (IS_LAYER1_IDEA_FUNC) {
+          IS_LAYER1_IDEA_FUNC = FALSE;
+          SEND_STRING(SS_UP(X_LCTRL));
+        } else {
+        }
+      }
+      return true;
+
+    case IBACK:
+      if (record->event.pressed) {
+        if (IS_LAYER1_IDEA_FUNC) {
+          SEND_STRING(SS_TAP(X_TAB));
+        } else {
+          SEND_STRING(SS_DOWN(X_LCTRL));
+          SEND_STRING(SS_TAP(X_TAB));
+          IS_LAYER1_IDEA_FUNC = TRUE;
+        }
+      }
+      return false;
+
+    case IRANGE:
+      if (record->event.pressed) {
+        if (IS_LAYER1_IDEA_FUNC) {
+          SEND_STRING(SS_TAP(X_W));
+        } else {
+          SEND_STRING(SS_DOWN(X_LCTRL));
+          SEND_STRING(SS_TAP(X_W));
+          IS_LAYER1_IDEA_FUNC = TRUE;
+        }
       }
       return false;
       break;
